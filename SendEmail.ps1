@@ -1,5 +1,5 @@
-﻿$From = "test@3dmoleculardesigns.com"
-$To = "terrylee23@ymail.com"
+﻿$From = "fromemail"
+$To = "toemail"
 $Subject = "Test Email"
 $Body = "<h2>This is a Test</h2><br><br>"
 $SMTPServer = "us-smtp-outbound-1.mimecast.com"
