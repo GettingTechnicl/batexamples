@@ -1,0 +1,4 @@
+Import-Module activedirectory
+$DaysInactive = 365
+$time = (Get-Date).Adddays(-($DaysInactive))
+Get-ADUser -Filter {LastLogonTimeStamp -lt $time} -Properties * | Sort LastLogonDate | FT GivenName, LastLogonDate

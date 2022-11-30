@@ -1,0 +1,3 @@
+Import-Module activedirectory
+$datecutoff = (Get-Date).AddDays(-365)
+Get-ADComputer -Properties LastLogonDate -Filter {LastLogonDate -lt $datecutoff} | Remove-ADComputer -WhatIf

@@ -1,0 +1,5 @@
+
+
+Will force close outlook and install mimecast
+
+Start-Process powershell -Argument "-ExecutionPolicy Bypass -noexit C:\Users\elevityit.GSB-DOMAIN\Downloads\Mimecast\mimecast.ps1" -Verb runAs

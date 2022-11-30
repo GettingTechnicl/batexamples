@@ -1,0 +1,2 @@
+Import-Module activedirectory
+Get-ADComputer -Properties LastLogonDate -Filter {LastLogonData -lt $datecutoff}

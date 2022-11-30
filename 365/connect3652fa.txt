@@ -1,0 +1,2 @@
+$Credentials = Get-Credential
+Connect-AzureAD -AccountID $Credentials
