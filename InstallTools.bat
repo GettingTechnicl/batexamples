@@ -28,6 +28,10 @@ set s1key=SITE_TOKEN=TOKEN /quiet /forcerestart
 set sysmon=sysmonassistant-1_0_1.msi
 set sysvar= /quiet
 
+: Set ArcticWolf Agent installer path
+set awagent=arcticwolfagent-2022-03_52.msi
+set awvar=/quiet
+
 :below, list consecutively only apps that are supported by chocolatey "https://community.chocolatey.org/packages?q="
 set chocolateyapps=
 
@@ -78,7 +82,7 @@ echo -- Completed created user -- moving on...
 goto :rsymantec
 
 :rsymantec
-echo rsymantec >%~dp0current.txt
+echo sysmon >%~dp0current.txt
 echo -- Removing Symantec --
 cd /D "C:\Program Files\Altiris\Altiris Agent"
 aexagentutil.exe /uninstall
@@ -87,7 +91,7 @@ goto :sysmon
 
 
 :sysmon
-echo sysmon >%~dp0current.txt
+echo two >%~dp0current.txt
 echo -- Sysmon Installing --
 cd /D "%~dp0"
 Sysmon.exe -u force
@@ -107,15 +111,24 @@ pause
 goto :four
 
 :three
-echo four >%~dp0current.txt
+echo awagent >%~dp0current.txt
 echo -- Section three - Installing Chocolatey and applications --
 cd /D "%~dp0"
 Powershell.exe -Command "Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))"
 Powershell.exe -Command "C:\ProgramData\chocolatey\bin\choco.exe install -y %chocolateyapps%"
 echo -- Completed installing User apps -- moving on...
+goto :awagent
+
+:awagent
+echo four >%~dp0current.txt
+echo -- Installing AW Agent --
+cd /D "%~dp0"
+msiexec /i %awagent% %awvar%
+echo -- AW Agent Install Finished -- moving on...
 goto :four
 
 :four
+echo five >%~dp0current.txt
 echo -- Section three - Installing RMM and SD Chat - Please be patient --
 cd /D "%~dp0"
 %continuum% /q & %sdchat%
